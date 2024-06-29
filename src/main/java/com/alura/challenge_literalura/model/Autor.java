@@ -1,6 +1,5 @@
 package com.alura.challenge_literalura.model;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,10 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -28,7 +24,7 @@ public class Autor {
     private int anioNacimiento;
     private int anioFallecimiento;
 
-    @ManyToMany(mappedBy = "autores", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Libro> libros = new ArrayList<>();
 
     public Autor(DatosAutor datosAutor){
@@ -36,7 +32,6 @@ public class Autor {
         this.anioNacimiento = datosAutor.anioNacimiento();
         this.anioFallecimiento = datosAutor.anioFallecimiento();
     }
-
 
     @Override
     public String toString() {
